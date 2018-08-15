@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!--
+    v-show
+
+    v-show 指令表示，根据表达式的boolean值，来判断是否展示元素，需要说明的是，如果bool=false，对应的dom标签还是会渲染到页面上，只是将该标签的css属性display=none而已；
+    而如果你用的是v-if，dom树将不被渲染到页面上，从这一点来看，如果你的需求是需要经常切换元素的显示和隐藏，使用v-show效率更高，而如果只做一次条件判断，使用v-if更合适
+    -->
+    <div id="app">
+        <h2>姓名：{{name}}</h2>
+        <hr>
+        <h2>是否已婚：<span v-show="isMarry">是</span></h2>
+        <h2>成人or小孩：<span v-show="age > 18">成人</span></h2>
+        <hr>
+    </div>
+
+</body>
+<script src="./lib/vue/vue.js"></script>
+<script>
+    var data = {
+        name: 'xiao ming',
+        age: 18,
+        isMarry:0,
+    }
+    var vue = new Vue({
+        el: '#app',
+        data:data,
+    })
+</script>
+</html>

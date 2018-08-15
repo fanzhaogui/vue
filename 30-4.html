@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!--
+    v-if
+    v-else
+    -->
+    <div id="app">
+        <h2>姓名：{{name}}</h2>
+        <hr>
+        <h2>是否已婚：<span v-if="isMarry">是</span><span v-else>否</span></h2>
+        <h2>成人or小孩：<span v-if="age > 18">成人</span><span v-else>小屁孩</span></h2>
+        <hr>
+    </div>
+
+</body>
+<script src="./lib/vue/vue.js"></script>
+<script>
+    var data = {
+        name: 'xiao ming',
+        age: 18,
+        isMarry:0,
+    }
+    var vue = new Vue({
+        el: '#app',
+        data:data,
+    })
+</script>
+</html>

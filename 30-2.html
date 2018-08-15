@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!-- 常用指令
+    v-text
+    v-html
+    v-if
+    v-show
+    v-else
+    v-for
+    v-on
+    v-bind
+    v-model
+    v-pre
+    v-clock
+    v-once
+    -->
+    <div id="app">
+        <!-- 绑定标签的text属性，注意：如果标签没有text属性，该绑定会失效，比如你在一个文本框上使用v-text是没有效果的 -->
+        <h1>姓名：<label v-text="name"></label></h1>
+        <!-- 赋值变量 -->
+        <h1>usename: {{name}}</h1>
+        <!-- 插入html -->
+        <div style="font-size: 30px; font-weight: bold;" v-html="age">年龄：</div>
+    </div>
+    <!--
+        v-html
+        v-text
+        绑定 是单向的，只能从model到View的绑定，不能实现View到model的更新
+    -->
+</body>
+<script src="./lib/vue/vue.js"></script>
+<script>
+    var data = {
+        name: 'xiao ming',
+        age: '<lable>20</lable>',
+        school: 'light middle school'
+    }
+    var vue = new Vue({
+        el: '#app',
+        data:data,
+    })
+</script>
+</html>
