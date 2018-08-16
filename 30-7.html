@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+    <!--
+    v-once
+    只要使用v-once指令的，View和Model之间除了初次渲染同步，之后便不再同步，而同一次绑定里面没有使用 v-once指令的还是会继续同步
+
+    v-bind 指令
+
+    html 标签的 text value href class style 自定义标签的自定义属性等
+
+    v-bind:property="expression"
+
+    -->
+    <div id="app">
+        <h1>姓名：<label v-once v-text="name"></label></h1>
+        <h1 v-once>年龄：{{age}}</h1>
+        <h1>性别：{{sex}}</h1>
+    </div>
+
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="./lib/vue/vue.js"></script>
+<script>
+    var data = {
+        name:'xiaoming',
+        age:15,
+        sex:'man'
+    }
+    var vue = new Vue({
+        el: '#app',
+        data:data,
+        methods:{
+            movePage: function(currentPage) {
+                this.currentPage = currentPage
+            }
+        }
+    })
+</script>
+</html>

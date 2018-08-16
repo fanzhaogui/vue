@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        .class1{
+            padding: 20px;
+        }
+        .backred{
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <!--
+    v-bind 指令
+
+    html 标签的 text value href class style 自定义标签的自定义属性等
+
+    v-bind:property="expression"
+
+    -->
+    <div id="app">
+        <h1>姓名：<label v-text="name"></label></h1>
+        <h1>是否红领巾：<span class="class1" v-bind:class="{backred:isBack}"><label v-if="isBack">是</label></span></h1>
+        <h1>学校星级：<span v-bind:style="{color:schooleLevel}">aa</span></h1>
+    </div>
+
+    <!--
+    v-on 指令
+    用来绑定标签的时间，其语法和v-bind基本类似
+    v-on:event="expression"
+    这里的event可以是JavaScript里面的常用事件，也可以是自定义时间
+    -->
+    <div id="app2">
+
+        <h1>姓名：<label v-text="username"></label></h1>
+        <h1>年龄：{{age}}</h1>
+        <button class="btn btn-primary" v-on:click="age++;if(username=='lin')username='jimu';else username='lin'">年龄递增</button>
+        <!--
+            除了直接在标签内写处理逻辑， 还可以定义方法时间处理器
+        -->
+        <button class="btn btn-success" v-on:click="hello">hello</button>
+    </div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="./lib/vue/vue.js"></script>
+<script>
+    var data = {
+        name:'xiaoming',
+        sex:'man',
+        schooleLevel: 'red',
+        isBack: true,
+    }
+    var vue = new Vue({
+        el: '#app',
+        data:data,
+        methods:{
+            movePage: function(currentPage) {
+                this.currentPage = currentPage
+            }
+        }
+    })
+    var app = new Vue({
+        el: '#app2',
+        data:{
+            username:'lin',
+            age: 18
+        },
+        methods:{
+            movePage: function(currentPage) {
+                this.currentPage = currentPage
+            },
+            hello: function(){
+                alert("Hello " + this.username + " !")
+                this.age ++
+            }
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+<body>
+    <!--
+    v-for
+
+    支持数组和对象
+    -->
+    <div id="app">
+        <ul>
+            <li v-for="v in nums">{{v}}</li>
+        </ul>
+        <ul>
+            <li v-for="u in nums2">姓名：{{u.name}}-- 年龄：{{u.age}}</li>
+        </ul>
+
+        <nav>
+            <ul class="pagination pagination-lg">
+                <template v-for="page in pages">
+                    <li v-if="currentPage==1 ==page" class="disabled"><a href="#">上一页</a></li>
+                    <li v-if="currentPage==page" class="active"><a href="#">{{page}}</a></li>
+                    <li v-else><a href="#">{{page}}</a></li>
+                    <li v-if="currentPage==pages"><a href="#">最后一页</a></li>
+                </template>
+            </ul>
+        </nav>
+
+        <ul>
+            <li v-for="(v, k) in values">
+                {{k}}:{{v}}
+            </li>
+            <li v-for="(v, k, i) in values">
+                {{i}}:{{k}}:{{v}}
+            </li>
+        </ul>
+    </div>
+
+
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="./lib/vue/vue.js"></script>
+<script>
+    var data = {
+        nums: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        nums2: [
+            {name: 'xiaoming', age:20},
+            {name: 'xiaoming2', age:22},
+            {name: 'xiaoming3', age:23},
+        ],
+        pages: 10,
+        currentPage:1,
+        values:{name:'xiaoming', age:15, sex:'man'}
+    }
+    var vue = new Vue({
+        el: '#app',
+        data:data,
+        methods:{
+            movePage: function(currentPage) {
+                this.currentPage = currentPage
+            }
+        }
+    })
+</script>
+</html>

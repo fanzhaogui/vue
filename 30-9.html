@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>搞定增删改查</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        table thead tr th{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="app">
+    <div class="row">
+        <div class="span12">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>用户名</th>
+                    <th>年龄</th>
+                    <th>毕业学校</th>
+                    <th>备注</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <template v-for="row in rows">
+                    <tr>
+                        <td>{{row.name}} </td>
+                        <td>{{row.age}} </td>
+                        <td>{{row.school}} </td>
+                        <td>{{row.remark}} </td>
+                        <td>
+                            <a href="#" @click="edit(row)">编辑</a> &nbsp;&nbsp;
+                            <a href="#" v-on:click="Delete(row.id)">删除</a>
+                        </td>
+                    </tr>
+                </template>
+                <tr>
+                    <td><input type="text" class="form-control" v-model="rowtemplate.name" /></td>
+                    <td><input type="text" class="form-control" v-model="rowtemplate.age" /></td>
+                    <td><input type="text" class="form-control" v-model="rowtemplate.school" /></td>
+                    <td><input type="text" class="form-control" v-model="rowtemplate.remark" /></td>
+                    <td>
+                        <button class="btn btn-primary" v-on:click="save">保存</button>
+                        <button class="btn btn-error" v-on:click="remove">清除</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="./lib/vue/vue.js"></script>
+<script>
+    var data = {
+        rows: [
+            {id: 1, name:'xiaoming', age:18,school: '光明小学', remark: '三好学生'},
+            {id: 2, name:'zhangsan', age:19,school: '光明小学', remark: '优秀干部'},
+            {id: 3, name:'lisi', age:20,school: '复兴中学', remark: '三好学生2'},
+            {id: 4, name:'wangwu', age:21,school: '复兴中学', remark: '优秀干部2'},
+            {id: 5, name:'liliu', age:17,school: '光明小学', remark: '三好学生3'},
+        ],
+        rowtemplate : {id:0, name:'', age: '', school:'', remark: ''}
+    }
+    var vue = new Vue({
+        el: '#app',
+        data:data,
+        methods:{
+            edit: function(row) {
+                this.rowtemplate = row
+
+            },
+            Delete: function(id){
+                console.log(id)
+                // 实际项目中是操作id去删除数据库中的内容
+                for(var i=0; i<this.rows.length; i++) {
+                    if(this.rows[i].id == id) {
+                        this.rows.splice(i, 1)
+                    }
+                }
+            },
+            save: function(event){
+                console.log(event)
+                var that =this;
+                //  设置新增模板ID
+                if(that.rowtemplate.id == 0) {
+                    that.rowtemplate.id = that.rows.length + 1
+                    that.rows.push(that.rowtemplate)
+                }
+            },
+            remove: function(){
+                this.rowtemplate = {id:0, name:'', age: '', school:'', remark: ''}
+            }
+        }
+    })
+</script>
+</html>
