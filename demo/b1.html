@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>几种绑定方式</title>
+    <style type="text/css">
+        [v-cloak]{display: none}
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <h1>几种绑定方式</h1>
+    <!--  关于闪烁的问题，  2.x 的基本一样了 -->
+    <p>{{posts}}</p>
+    <p v-text="posts"></p>
+    <p v-html="posts"></p>
+    <p v-cloak="posts"></p>
+
+</div>
+<script src="../lib/vue/vue.js"></script>
+<!-- 引入用于配合vuejs执行ajax操作的插件 -->
+<script src="../lib/axios/axios.min.js"></script>
+
+<script>
+    // 用jquery的方式实现
+    var url = '../server/data3.php'
+
+    var app = new Vue({
+        el: "#app",
+        data:{
+            posts: '',
+        },
+        methods:{
+            inipagedata: function () {
+                var that = this
+                axios.get(url, {
+                        params:{
+
+                        }
+                    })
+                    .then(function (res) {
+                        console.log(res.data)
+                        that.posts = res.data;
+                    })
+                    .catch(function (err) {
+                        console.log(err)
+                    })
+            }
+        },
+        // 页面加载的时候，会自动执行 mounted
+        mounted: function () {
+            this.inipagedata();
+        }
+    });
+
+</script>
+</body>
+</html>
