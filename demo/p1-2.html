@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jquery 异步获取数据</title>
+</head>
+<body>
+
+<div id="app">
+    <h1>{{posts.category}}</h1>
+    <ul v-for="item in posts.article">
+
+        <li>{{item.title}}</li>
+        <li>{{item.author}}</li>
+
+    </ul>
+</div>
+
+<script src="../lib/vue/vue.js"></script>
+<!-- 引入用于配合vuejs执行ajax操作的插件 -->
+<script src="../lib/axios/axios.min.js"></script>
+<script>
+    // 用jquery的方式实现
+    var url = '../server/data.php'
+    /*
+    $.get(url , {}, function(data){
+        var str = '<h1>data.category</h1>';
+
+        str += '<ul>';
+        $.each(data.article, function(index, item) {
+            str += '<li>'+item.title+'</li>';
+            str += '<li>'+item.author+'</li>';
+        })
+        str += '</ul>';
+        $(".jquery-ajax").html(str);
+    }, 'json');
+    */
+    var app = new Vue({
+        el: "#app",
+        data:{
+            posts:{},
+        },
+        methods:{
+            inipagedata: function () {
+                /*var that = this
+                console.log('inipagedata')
+                axios.get(url)
+                    .then(function (res) {
+                        console.log(res.data)
+                        that.posts = res.data
+                    })
+                    .catch(function (err) {
+                        console.log(err)
+                    })*/
+            }
+        },
+        // 页面加载的时候，会自动执行 mounted
+        mounted: function () {
+            var that = this
+            console.log('inipagedata')
+            axios.get(url)
+                .then(function (res) {
+                    console.log(res.data)
+                    that.posts = res.data
+                })
+                .catch(function (err) {
+                    console.log(err)
+                })
+        }
+    });
+    // app.inipagedata();
+
+</script>
+</body>
+</html>

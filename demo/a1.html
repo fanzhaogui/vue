@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模拟 分页</title>
+</head>
+<body>
+
+<div id="app">
+    <h1>模拟下拉分页效果</h1>
+        <p v-for="item in posts">{{item.title}}</p>
+</div>
+<p v-bind:style="if(status){'disable'}"></p>
+<script src="../lib/vue/vue.js"></script>
+<!-- 引入用于配合vuejs执行ajax操作的插件 -->
+<script src="../lib/axios/axios.min.js"></script>
+<script>
+    // 用jquery的方式实现
+    var url = '../server/data2.php'
+
+    var app = new Vue({
+        el: "#app",
+        data:{
+            posts:[],
+            i: 0,
+            height: 0,
+            over: false,
+            disableStatus: true
+        },
+        methods:{
+            inipagedata: function () {
+                var that = this
+                if(that.i > 1) {
+                    removeLoading();
+                }
+                that.i = that.i + 1;
+                console.log('inipagedata')
+                if(that.over) {
+                    that.disableStatus = false
+                    return false;
+                }
+                axios.get(url, {
+                        params:{
+                            p:that.i
+                        }
+                    })
+                    .then(function (res) {
+                        console.log(res.data)
+                        if(res.data.length > 0) {
+
+                            that.posts = that.posts.concat(res.data)
+                        } else {
+                            loadingToOver();
+                            that.over = true
+                            that.disableStatus = false
+                        }
+                    })
+                    .catch(function (err) {
+                        console.log(err)
+                    })
+            }
+        },
+        // 页面加载的时候，会自动执行 mounted
+        mounted: function () {
+            this.inipagedata();
+        }
+    });
+
+
+
+
+    //获取滚动条当前的位置
+    function getScrollTop() {
+        var scrollTop=0;
+        if(document.documentElement && document.documentElement.scrollTop){
+            scrollTop=document.documentElement.scrollTop;
+        }else if(document.body) {
+            scrollTop=document.body.scrollTop;
+        }
+        return scrollTop;
+    }
+    //获取当前可视范围的高度
+    function getClientHeight() {
+        var clientHeight=0;
+        if(document.body.clientHeight && document.documentElement.clientHeight){
+            clientHeight=Math.min(document.body.clientHeight, document.documentElement.clientHeight);
+        }else{
+            clientHeight=Math.max(document.body.clientHeight, document.documentElement.clientHeight);
+        }
+        return clientHeight;
+    }
+    //获取文档完整的高度
+    function getScrollHeight() {
+        return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+    }
+    // 添加 加载中样式
+    function addLoading(){
+        var loading=document.createElement('p');
+        loading.className='loading'
+        loading.innerHTML='加载中...';
+        document.body.appendChild(loading);
+    }
+    // 删除 加载中样式
+    function removeLoading(){
+        var loading=document.querySelector('.loading');
+        loading.parentNode.removeChild(loading);
+    }
+    // 把加载中 改成 没有数据了
+    function loadingToOver(){
+        var loading=document.querySelector('.over');
+        loading.style.display='block';
+    }
+
+
+    // 监听滚动事件
+    window.onscroll=function () {
+        if (app.over) {
+            return false;
+        }
+        if ( getScrollHeight()-(getScrollTop()+getClientHeight())<=50 ) {
+            // 显示加载
+            addLoading();
+            // 获取下一页的数据
+            app.inipagedata();
+        }
+    }
+</script>
+</body>
+</html>
