@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+
+    </style>
+</head>
+<body>
+<div class="container" id="app">
+    <div class="row">
+        <div class="span12">
+
+
+
+
+        </div>
+    </div>
+</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="./lib/vue/vue.js"></script>
+<script>
+    var data = {
+        a : 1
+    };
+    var vm = new Vue({
+        el: '#app',
+        data:data,
+        methods:{
+
+        },
+        /* 生命周期函数 */
+        // 钩子可以用来在一个实例被创建之后执行代码
+        created: function () {
+            // this 指向vm实例
+            console.log(this.a)
+
+        },
+        mounted:function(){
+
+        },
+        updated : function() {
+
+        },
+        destroyed : function(){
+
+        }
+    })
+</script>
+</html>
